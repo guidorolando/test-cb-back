@@ -1,0 +1,1 @@
+INSERT INTO type_game (id, name) VALUES (1, 'free game')

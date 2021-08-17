@@ -3,11 +3,11 @@ package com.test.cbback.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "result")
-public class Result {
+@Table(name = "bet")
+public class Bet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -16,7 +16,7 @@ public class Result {
     @ManyToOne
     private Game game;
 
-    private Long userValue;
+    private Double betValue;
 
     private Boolean winner;
 
@@ -44,12 +44,12 @@ public class Result {
         this.game = game;
     }
 
-    public Long getUserValue() {
-        return userValue;
+    public Double getBetValue() {
+        return betValue;
     }
 
-    public void setUserValue(Long userValue) {
-        this.userValue = userValue;
+    public void setBetValue(Double betValue) {
+        this.betValue = betValue;
     }
 
     public Boolean getWinner() {

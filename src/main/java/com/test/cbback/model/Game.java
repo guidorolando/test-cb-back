@@ -6,11 +6,15 @@ import javax.persistence.*;
 @Table(name = "game")
 public class Game {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Boolean status;
-    private Long finalValue;
+    private Double initialValue;
+    private Double finalValue;
+
+    private Long initTime;
+    private Long endTime;
 
     @ManyToOne
     private TypeGame typeGame;
@@ -47,11 +51,35 @@ public class Game {
         this.typeGame = typeGame;
     }
 
-    public Long getFinalValue() {
+    public Double getInitialValue() {
+        return initialValue;
+    }
+
+    public void setInitialValue(Double initialValue) {
+        this.initialValue = initialValue;
+    }
+
+    public Double getFinalValue() {
         return finalValue;
     }
 
-    public void setFinalValue(Long finalValue) {
+    public void setFinalValue(Double finalValue) {
         this.finalValue = finalValue;
+    }
+
+    public Long getInitTime() {
+        return initTime;
+    }
+
+    public void setInitTime(Long initTime) {
+        this.initTime = initTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
     }
 }
