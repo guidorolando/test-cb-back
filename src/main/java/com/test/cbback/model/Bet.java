@@ -11,9 +11,11 @@ public class Bet {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="user_id", referencedColumnName="id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name="game_id", referencedColumnName="id")
     private Game game;
 
     private Double betValue;

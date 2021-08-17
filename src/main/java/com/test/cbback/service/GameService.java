@@ -31,19 +31,27 @@ public class GameService {
 
     public Game start() {
         Game freeGame = new Game();
-        Double initialValue = nomicsService.getValue()[0].getPrice();
-        freeGame.setInitialValue(initialValue);
+        freeGame.setInitialValue(this.timerSingleton.getInitValue());
         freeGame.setTypeGame(this.getFreeGame());
         freeGame.setStatus(Boolean.TRUE);
-        freeGame.setFinalValue(null);
+        freeGame.setFinalValue(0.0);
         freeGame.setInitTime(this.timerSingleton.getDate().getTime());
         freeGame.setEndTime(this.generateEndTime());
 
         return this.gameRepository.save(freeGame);
     }
 
+    public Game saveGame(Game game) {
+        return this.gameRepository.save(game);
+    }
+
     public Game findById(Long id) {
         return this.gameRepository.findById(id).get();
+    }
+
+
+    public void endGames() {
+        this.gameRepository.updateGameStatus(Boolean.FALSE);
     }
 
     private TypeGame getFreeGame() {
@@ -52,8 +60,6 @@ public class GameService {
 
     private Long generateEndTime() {
         Date initDate = this.timerSingleton.getDate();
-        /*Calendar calendar = new Calendar(initDate);
-        initDate.(initDate.getSeconds() + 10);*/
         initDate.setTime(initDate.getTime() + envConfig.getTime());
         return initDate.getTime();
     }

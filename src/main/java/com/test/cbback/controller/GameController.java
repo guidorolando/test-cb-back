@@ -20,7 +20,7 @@ public class GameController {
     }
 
     @PostMapping(value = "registry")
-    public Bet registry(@RequestBody RegistryGame registryGame) {
+    public boolean registry(@RequestBody RegistryGame registryGame) {
         return freeGame.join(registryGame);
     }
 }

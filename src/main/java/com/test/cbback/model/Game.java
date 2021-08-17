@@ -17,6 +17,7 @@ public class Game {
     private Long endTime;
 
     @ManyToOne
+    @JoinColumn(name="type_game_id", referencedColumnName="id")
     private TypeGame typeGame;
 
     public Long getId() {

@@ -27,11 +27,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/topic", "/players", "/initTime");
+        config.enableSimpleBroker("/topic", "/registry");
     }
-
-    /*@Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {{
-        registry.addHandler(new SimpleHandlerWS(), "/chat").withSockJS();
-    }*/
 }
