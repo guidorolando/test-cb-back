@@ -1,5 +1,5 @@
 # CRYPTO BETS BACKEND
-Persistence and logic of game of CRYPTO BEST:
+Persistence and logic of game of CRYPTO BETS:
 
 * Register players to a game
 * Game has a cyclic duration of time parameter
@@ -51,3 +51,8 @@ Change over application.properties:
 
         env.play.time=60000
         env.play.warning.time=5000
+
+# BUILD AND RUN
+
+    mvn clean compile package
+    mvn spring-boot:run
