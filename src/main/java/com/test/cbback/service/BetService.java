@@ -7,6 +7,7 @@ import com.test.cbback.repository.BetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,5 +31,23 @@ public class BetService {
 
     public void save(Bet bet) {
         this.betRepository.save(bet);
+    }
+
+    public boolean searchByUserAndGame(User user, Game game) {
+        boolean find = false;
+        Bet bet = this.betRepository.findByGameIdAndUserId(game.getId(), user.getId());
+        if(bet != null) {
+            find = true;
+        }
+        return find;
+    }
+
+    public List<User> getWinners(Long gameId) {
+        List<User> userList = new ArrayList<>();
+        List<Bet> betList = this.betRepository.findByGameIdAndWinner(gameId, Boolean.TRUE);
+        for(Bet bet : betList) {
+            userList.add(bet.getUser());
+        }
+        return userList;
     }
 }

@@ -9,5 +9,7 @@ public interface ModeGame {
 
     public void end();
 
+    public void process();
+
     public boolean join(RegistryGame registryGame);
 }

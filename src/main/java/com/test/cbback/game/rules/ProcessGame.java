@@ -1,7 +1,7 @@
 package com.test.cbback.game.rules;
 
 import com.test.cbback.config.TimerSingleton;
-import com.test.cbback.controller.response.NomicsResponse;
+import com.test.cbback.kafka.MessageKafkaService;
 import com.test.cbback.model.Bet;
 import com.test.cbback.model.Game;
 import com.test.cbback.service.BetService;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class WinRule implements RuleGame {
+public class ProcessGame {
     @Autowired
     private GameService gameService;
 
@@ -27,27 +27,24 @@ public class WinRule implements RuleGame {
     @Autowired
     private TimerSingleton timerSingleton;
 
-    @Override
-    public boolean validate() {
-        Game currentGame = this.gameService.getCurrentGame();
+    @Autowired
+    private MessageKafkaService messageKafkaService;
 
-        if (currentGame != null) {
-            currentGame.setFinalValue(this.timerSingleton.getInitValue());
-            currentGame = this.gameService.saveGame(currentGame);
+    @Autowired
+    private PreconditionRule preconditionRule;
 
-            List<Bet> bets = this.betService.getBetsByGame(currentGame.getId());
 
-            if (bets.size() > 1) {
+    public void play() {
+        if (this.preconditionRule.validate()) {
+            Game currentGame = this.gameService.getCurrentGame();
+            if (currentGame != null) {
+                currentGame.setFinalValue(this.timerSingleton.getInitValue());
+                currentGame = this.gameService.saveGame(currentGame);
+                List<Bet> bets = this.betService.getBetsByGame(currentGame.getId());
                 List<Bet> winners = this.processGame(bets, currentGame);
-                // send notification
-                return true;
-            } else {
-                return false;
+                this.messageKafkaService.sendMessage(winners);
             }
-        } else {
-            return false;
         }
-
     }
 
     private List<Bet> processGame(List<Bet> bets, Game game) {

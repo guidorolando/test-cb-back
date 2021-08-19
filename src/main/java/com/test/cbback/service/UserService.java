@@ -20,4 +20,8 @@ public class UserService {
         newUser.setEmail(email);
         return this.userRepository.save(newUser);
     }
+
+    public User findById(Long id) {
+        return this.userRepository.findById(id).get();
+    }
 }

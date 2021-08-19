@@ -10,4 +10,6 @@ import java.util.List;
 public interface BetRepository extends CrudRepository<Bet, Long> {
 
     List<Bet> findByGameId(Long gameId);
+    Bet findByGameIdAndUserId(Long gameId, Long usersId);
+    List<Bet> findByGameIdAndWinner(Long gameId, Boolean winner);
 }

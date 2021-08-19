@@ -3,7 +3,7 @@ package com.test.cbback.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TYPE_GAME")
+@Table(name = "type_game")
 public class TypeGame {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
