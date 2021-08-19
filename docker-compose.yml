@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  mysqldbgame:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - www-game
+
+networks:
+  www-game:
